@@ -1,0 +1,9 @@
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  font-size: 104px;
+  font-weight: 900;
+  line-height: 104px;
+}
