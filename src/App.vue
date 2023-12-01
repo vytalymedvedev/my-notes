@@ -1,18 +1,21 @@
 <template>
   <div id="app">
     <HeaderCommon />
-    <WelcomePage />
+    <WelcomePage v-if="false"/>
+    <NotePage />
   </div>
 </template>
 
 <script>
-import WelcomePage from './components/WelcomePage.vue'
+import WelcomePage from './components/WelcomePage.vue';
+import NotePage from './components/NotePage.vue';
 import HeaderCommon from './components/HeaderCommon.vue';
 
 export default {
   name: 'App',
   components: {
     WelcomePage,
+    NotePage,
     HeaderCommon
   }
 }
@@ -26,7 +29,6 @@ export default {
   display: flex;
   flex-flow: column;
   height: 100vh;
-  background-color: var(--dark);
   padding: 0 20px;
   color: white;
   -webkit-font-smoothing: antialiased;

@@ -1,7 +1,24 @@
+.text-small, .text-normal {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .text-small {
   color: var(--gray);
-  font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
+}
+
+.text-normal {
+  color: var(--white);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@media screen and (min-width: 768px) {
+	.welcomePage--board {
+		font-size: 20px;
+    line-height: 32px;
+	}
 }
