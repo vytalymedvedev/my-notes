@@ -13,6 +13,7 @@
 
         <input-custom
           v-model="password"
+          secured
           inputLabel="Пароль"
           placeholder="Введите пароль"
         />
