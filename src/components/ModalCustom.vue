@@ -80,14 +80,6 @@ export default {
 	}
 }
 
-.modal-header h2 {
-  font-family: 'Montserrat' sans-serif;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 36px;
-  max-width: 300px;
-}
-
 .modal-header, .modal-body, .modal-footer {
   padding: 0 4px;
 }

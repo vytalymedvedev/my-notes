@@ -1,18 +1,18 @@
 <template>
   <div class="inputCustom">
-    <label for="" class="label"> {{ inputLabel }}</label>
+    <label for="" class="text-small label"> {{ inputLabel }}</label>
     <input
       @input="onInput"
       :value="value"
       :type="inputType"
       :placeholder="placeholder"
       :disabled="disabled"
-      class="input"
+      class="text-small input"
       />
       <div v-if="secured" @click="toggleSecure" class="toggleSecure">
         <img :src="secureIconSrc" alt="secure icon" class="toggleSecure--icon"/>
       </div>
-      <span v-if="errorMessage?.length" class="errorMessage"> {{ errorMessage }}</span>
+      <span v-if="errorMessage?.length" class="text-small errorMessage"> {{ errorMessage }}</span>
   </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style scoped>
-
+@import '../assets/styles/components.css';
 .inputCustom {
   position: relative;
 }
@@ -91,12 +91,5 @@ export default {
 
 .errorMessage {
   color: var(--orange);
-}
-
-input, .label, .errorMessage {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 28px;
 }
 </style>

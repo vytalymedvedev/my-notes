@@ -4,7 +4,7 @@
       <h2>{{ headerText }}</h2>
     </template>
     <template #body>
-      <div class="Text--body">
+      <div class="modal--body">
         <input-custom
           v-model="email"
           inputLabel="Email"
@@ -36,19 +36,24 @@
         </button-primary>
         <div class="modal--footer-note">
           <template v-if="registration">
-            <div class="modal--footer-text modal--footer-text__enter">У вас есть аккаунт?&nbsp;</div>
+            <div class="text-small modal--footer-text modal--footer-text__enter">
+              У вас есть аккаунт?&nbsp;
+            </div>
             <link-primary @click="toggleRegistration" class="modal--footer-link">
               Войдите
             </link-primary>
           </template>
           <template v-else>
-            <div class="modal--footer-text">У вас нет аккаунта?&nbsp;</div>
+            <div class="text-small modal--footer-text">
+              У вас нет аккаунта?&nbsp;
+            </div>
             <link-primary @click="toggleRegistration" class="modal--footer-link">
               Зарегистрируйтесь
             </link-primary>
           </template>
         </div>
       </div>
+      <div v-if="errorMessage?.length" class="text-small errorMessage">{{ errorMessage }}</div>
     </template>
   </modal-custom>
 </template>
@@ -73,6 +78,7 @@ export default {
       password: '',
       passwordRepeat: '',
       registration: false,
+      errorMessage: '',
     }
   },
   computed: {
@@ -94,6 +100,7 @@ export default {
 </script>
 
 <style scoped>
+@import '../assets/styles/components.css';
 .modal--body {
   display: grid;
   gap: 16px;
@@ -126,8 +133,6 @@ export default {
 
 .modal--footer-text {
   color: var(--gray);
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
   font-size: 14px;
   line-height: 24px;
   display: inline-block;
@@ -153,5 +158,13 @@ export default {
 
 .modal--footer-link {
   display: inline-block;
+}
+
+.errorMessage {
+  margin-top: 20px;
+  padding: 8px 20px;
+  color: var(--orange);
+  background: rgba(255, 116, 97, .1);
+  border-radius: 24px;
 }
 </style>
