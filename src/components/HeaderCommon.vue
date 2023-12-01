@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <img src="/logo.svg" alt="logo" class="header--logo"/>
-    <button-primary @click="logMessage">
+    <button-primary @click="handleShowModal" class="header--button">
       <template slot="icon">
         <img src="/enter.svg" alt="enter icon" class="header--button-image">
       </template>
@@ -9,25 +9,36 @@
         <span>Вход</span>
       </template>
     </button-primary>
+    <login-modal v-if="showModal" @close="handleHideModal"></login-modal>
   </header>
 </template>
 
 <script>
 import ButtonPrimary from './ButtonPrimary.vue';
+import LoginModal from './LoginModal.vue';
 
 export default {
-name: 'HeaderCommon',
-components: {
-  ButtonPrimary,
-},
-props: {
-  isLoggedIn: Boolean
-},
-methods: {
-  logMessage: () => {
-    console.log('clicked');
+  name: 'HeaderCommon',
+  components: {
+    ButtonPrimary,
+    LoginModal,
+  },
+  props: {
+    isLoggedIn: Boolean
+  },
+  data() {
+    return {
+      showModal: false,
+    }
+  },
+  methods: {
+    handleShowModal() {
+      this.showModal = true;
+    },
+    handleHideModal() {
+      this.showModal = false;
+    }
   }
-}
 }
 </script>
 
@@ -53,6 +64,10 @@ methods: {
 	.header--logo {
 		width: 220px;
 	}
+}
+
+.header--button {
+  padding: 12px 20px;
 }
 
 .header--button-image {

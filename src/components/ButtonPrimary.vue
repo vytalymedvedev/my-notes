@@ -1,5 +1,5 @@
 <template>
-  <button class="button" :disabled="disabled" @click="onClick">
+  <button class="button" :disabled="disabled" @click="$emit('click')">
     <slot name="icon"/>
     <slot name="text" />
   </button>
@@ -11,25 +11,27 @@ export default {
   props: {
     disabled: Boolean
   },
-  methods: {
-    onClick: function() {
-      this.$emit('click');
-    }
-  }
 }
 </script>
 
 <style scoped>
 .button {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 12px;
   color: var(--white);
+  cursor: pointer;
   border: none;
   border-radius: 32px;
-  padding: 12px 20px;
+  padding: 20px;
   font-size: 20px;
   line-height: 32px;
   background-color: var(--green-light);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 32px;
 }
 
 .button:hover {
