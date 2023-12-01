@@ -2,7 +2,7 @@
   <a
     :href="href"
     tabindex="0"
-    @click="emit('click')"
+    @click="$emit('click')"
     class="link">
     <slot />
   </a>

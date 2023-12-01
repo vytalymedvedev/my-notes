@@ -1,10 +1,10 @@
 <template>  
   <modal-custom @close="$emit('close')">
     <template #header>
-      <h2>Вход в ваш аккаунт</h2>
+      <h2>{{ headerText }}</h2>
     </template>
     <template #body>
-      <div class="modal--body">
+      <div class="Text--body">
         <input-custom
           v-model="email"
           inputLabel="Email"
@@ -17,20 +17,36 @@
           inputLabel="Пароль"
           placeholder="Введите пароль"
         />
+
+        <input-custom
+          v-if="registration"
+          v-model="passwordRepeat"
+          secured
+          inputLabel="Пароль ещё раз"
+          placeholder="Введите пароль"
+        />
       </div>
     </template>
     <template #footer>
       <div class="modal--footer">
         <button-primary @click="handleLogin" class="login-button">
           <template slot="text">
-            <span>Войти</span>
+            <span>{{ enterText }}</span>
           </template>
         </button-primary>
         <div class="modal--footer-note">
-          <div class="modal--footer-text">У вас нет аккаунта?&nbsp;</div>
-          <link-primary class="modal--footer-link">
-            Зарегистрируйтесь
-          </link-primary>
+          <template v-if="registration">
+            <div class="modal--footer-text modal--footer-text__enter">У вас есть аккаунт?&nbsp;</div>
+            <link-primary @click="toggleRegistration" class="modal--footer-link">
+              Войдите
+            </link-primary>
+          </template>
+          <template v-else>
+            <div class="modal--footer-text">У вас нет аккаунта?&nbsp;</div>
+            <link-primary @click="toggleRegistration" class="modal--footer-link">
+              Зарегистрируйтесь
+            </link-primary>
+          </template>
         </div>
       </div>
     </template>
@@ -55,9 +71,22 @@ export default {
     return {
       email: '',
       password: '',
+      passwordRepeat: '',
+      registration: false,
+    }
+  },
+  computed: {
+    headerText() {
+      return this.registration ? 'Регистрация' : 'Вход в ваш аккаунт';
+    },
+    enterText() {
+      return this.registration ? 'Зарегистрироваться' : 'Войти';
     }
   },
   methods: {
+    toggleRegistration() {
+      this.registration = !this.registration;
+    },
     handleLogin() {
     },
   }
@@ -106,6 +135,7 @@ export default {
 
 @media screen and (min-width: 768px) {
 	.modal--footer-text {
+    display: block;
 		font-size: 18px;
     line-height: 28px;
 	}
@@ -113,8 +143,12 @@ export default {
 
 @media screen and (min-width: 1100px) {
 	.modal--footer-text {
-		display: block;
+		display: inline-block;
 	}
+}
+
+.modal--footer-text__enter {
+  display: inline-block;
 }
 
 .modal--footer-link {
