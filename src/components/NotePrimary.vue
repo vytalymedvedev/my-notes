@@ -6,7 +6,11 @@
       </h4>
     </div>
     <div class="note--line" />
-    <div class="text-normal note--body">{{ content }}</div>
+    <div class="text-normal note--body">
+      <div class="note--body-content">
+        {{ content }}
+      </div>
+    </div>
     <div class="note--footer">
       <button-primary @click="$emit('remove')" class="note--footer-button">
         <template slot="icon">
@@ -67,6 +71,26 @@ export default {
 
 .note--header, .note--body {
   padding: 20px 28px;
+}
+
+.note--body-content {
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 12;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 768px) {
+	.note--body-content {
+		-webkit-line-clamp: 4;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	.note--body-content {
+		-webkit-line-clamp: 9;
+	}
 }
 
 .note--footer {
