@@ -1,8 +1,12 @@
 <template>
   <div class="note">
-    <h4 class="note--header">{{ noteData?.title }}</h4>
+    <div class="note--header">
+      <h4>
+        {{ title }}
+      </h4>
+    </div>
     <div class="note--line" />
-    <div class="text-normal note--body">{{ noteData?.content }}</div>
+    <div class="text-normal note--body">{{ content }}</div>
     <div class="note--footer">
       <button-primary @click="$emit('remove')" class="note--footer-button">
         <template slot="icon">
@@ -25,8 +29,9 @@ export default {
     ButtonPrimary
   },
   props: {
-    noteData: Object
-  }
+    title: String,
+    content: String,
+  },
 }
 </script>
 
@@ -34,13 +39,30 @@ export default {
 @import '../assets/styles/components.css';
 
 .note {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: fit-content;
   background-color: var(--green-light);
   color: var(--white);
   border-radius: 12px;
-  box-shadow: 0 15px 15px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.4);
+}
+
+.note:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 20px;
+  border-style: solid;
+  border-color: var(--dark) var(--dark) transparent transparent;
+  background: var(--green);
+  -moz-border-radius: 0 0 0 12px;
+  border-radius: 0 0 0 12px;
+  /* Firefox 3.0 damage limitation */
+  display: block;
+  width: 0;
 }
 
 .note--header, .note--body {

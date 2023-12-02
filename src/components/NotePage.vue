@@ -2,7 +2,8 @@
   <main class="notePage">
     <NotePrimary
       v-for="(note, index) of notes"
-      :noteData="note"
+      :title="note.title"
+      :content="note.content"
       :key="index"
     />
   </main>
