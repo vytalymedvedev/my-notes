@@ -1,7 +1,8 @@
 <template>
   <header class="header">
     <img src="/logo.svg" alt="logo" class="header--logo"/>
-    <button-primary @click="handleShowModal" class="header--button">
+    <user-profile v-if="true" :email="userEmail"/>
+    <button-primary v-else @click="handleShowModal" class="header--button">
       <template slot="icon">
         <img src="/enter.svg" alt="enter icon" class="header--button-image">
       </template>
@@ -16,12 +17,14 @@
 <script>
 import ButtonPrimary from './ButtonPrimary.vue';
 import LoginModal from './LoginModal.vue';
+import UserProfile from './UserProfile.vue';
 
 export default {
   name: 'HeaderCommon',
   components: {
     ButtonPrimary,
     LoginModal,
+    UserProfile
   },
   props: {
     isLoggedIn: Boolean
@@ -29,6 +32,14 @@ export default {
   data() {
     return {
       showModal: false,
+      user: {
+        email: 'username@example.com'
+      },
+    }
+  },
+  computed: {
+    userEmail() {
+      return this.user?.email || '';
     }
   },
   methods: {
