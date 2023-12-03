@@ -108,11 +108,16 @@ export default {
 	}
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 1366px) {
 	.note-page__table {
 		grid-template-columns: 1fr 1fr 1fr;
-    gap: 40px;
     grid-auto-rows: min-content;
+	}
+}
+
+@media screen and (min-width: 1920px) {
+	.note-page__table {
+		gap: 40px;
 	}
 }
 
