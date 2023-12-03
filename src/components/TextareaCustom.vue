@@ -50,7 +50,7 @@ export default {
   resize: none;
 }
 
-@media screen and (min-width: env(--break-sm)) {
+@media screen and (min-width: 1920px) {
   .field {
     height: 244px;
   }
