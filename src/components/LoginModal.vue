@@ -34,7 +34,7 @@
             <span>{{ enterText }}</span>
           </template>
         </button-primary>
-        <div class="modal--footer-note">
+        <div class="modal__footer-note">
           <template v-if="registration">
             <div class="text-small modal--footer-text modal--footer-text__enter">
               У вас есть аккаунт?&nbsp;
@@ -129,6 +129,10 @@ export default {
 
 .login-button {
   padding: 12px 24px;
+}
+
+.modal__footer-note {
+  padding-bottom: 16px;
 }
 
 .modal--footer-text {

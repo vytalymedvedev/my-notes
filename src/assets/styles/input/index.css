@@ -1,0 +1,35 @@
+.label {
+  display: block;
+  color: var(--gray);
+  margin-bottom: 8px;
+  margin-left: 1.6rem;
+}
+
+.field {
+  width: 100%;
+  border: none;
+  color: var(--dark);
+  border-radius: 36px;
+  padding: 0 28px;
+}
+
+.field:hover, .field:active, .field:focus {
+  outline: 2px solid var(--green-light);
+}
+
+.field__footnote {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.errorMessage {
+  display: inline-block;
+  color: var(--orange);
+}
+
+.maxlength {
+  margin-right: 24px;
+  text-align: end;
+}

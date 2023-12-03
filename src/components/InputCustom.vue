@@ -1,22 +1,31 @@
 <template>
   <div class="inputCustom">
-    <label for="" class="text-small label"> {{ inputLabel }}</label>
+    <label :for="uniqueId" class="text-small label"> {{ inputLabel }}</label>
     <input
       @input="onInput"
       :value="value"
       :type="inputType"
       :placeholder="placeholder"
       :disabled="disabled"
-      class="text-small input"
+      :id="uniqueId"
+      :maxlength="maxlength"
+      class="text-small field"
       />
+
       <div v-if="secured" @click="toggleSecure" class="toggleSecure">
-        <img :src="secureIconSrc" alt="secure icon" class="toggleSecure--icon"/>
+        <img :src="secureIconSrc" alt="secure icon" class="toggleSecure__icon"/>
       </div>
-      <span v-if="errorMessage?.length" class="text-small errorMessage"> {{ errorMessage }}</span>
+
+      <div class="field__footnote">
+        <span v-if="errorMessage?.length" class="text-small errorMessage"> {{ errorMessage }}</span>
+        <div v-if="showMaxlength" class="text-small maxlength"> {{ textLength }}</div>
+      </div>
   </div>
 </template>
 
 <script>
+import { inputMixin } from '../mixins/InputMixin';
+
 export default {
   name: 'InputCustom',
   props: {
@@ -26,10 +35,15 @@ export default {
     disabled: Boolean,
     errorMessage: String,
     secured: Boolean,
+    maxlength: {
+      type: Number,
+      default: 100
+    },
+    showMaxlength: Boolean
   },
+  mixins: [inputMixin],
   data() {
     return {
-      uniqueId: '',
       showValue: false,
     }
   },
@@ -46,9 +60,6 @@ export default {
     },
   },
   methods: {
-    onInput(e) {
-      this.$emit('input', e.target.value);
-    },
     toggleSecure() {
       this.showValue = !this.showValue;
     }
@@ -58,6 +69,8 @@ export default {
 
 <style scoped>
 @import '../assets/styles/components.css';
+@import '../assets/styles/input/index.css';
+
 .inputCustom {
   position: relative;
 }
@@ -69,13 +82,8 @@ export default {
   margin-left: 1.6rem;
 }
 
-.input {
+.field {
   height: 72px;
-  width: 100%;
-  border: none;
-  color: var(--dark);
-  border-radius: 36px;
-  padding: 0 28px;
 }
 
 .toggleSecure {
@@ -85,11 +93,7 @@ export default {
   cursor: pointer;
 }
 
-.toggleSecure--icon {
+.toggleSecure__icon {
   width: 18px;
-}
-
-.errorMessage {
-  color: var(--orange);
 }
 </style>

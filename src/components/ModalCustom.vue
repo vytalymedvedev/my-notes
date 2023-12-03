@@ -62,7 +62,7 @@ export default {
   transition: all 0.3s ease;
   height: fit-content;
   border-radius: 40px;
-  padding: 16px 16px 90px;
+  padding: 16px 16px 24px;
   max-width: 352px;
 }
 

@@ -1,5 +1,7 @@
 <template>
   <main class="note-page">
+    <NoteModal v-if="showModal" @close="toggleShowModal"/>
+
     <div class="note-page__table">
       <NotePrimary
         v-for="(note, index) of notes"
@@ -9,7 +11,7 @@
       />
     </div>
     
-    <button-primary @click="handleAddNote" class="note-page__add-note-button">
+    <button-primary @click="toggleShowModal" class="note-page__add-note-button">
       <template slot="icon">
         <img src="/plus.svg" alt="remove icon" class="note-page__add-note-button-icon">
       </template>
@@ -18,6 +20,7 @@
 </template>
 
 <script>
+import NoteModal from './NoteModal.vue';
 import ButtonPrimary from './ButtonPrimary.vue';
 import NotePrimary from './NotePrimary.vue';
 
@@ -26,9 +29,11 @@ export default {
   components: {
     ButtonPrimary,
     NotePrimary,
+    NoteModal,
   },
   data() {
     return {
+      showModal: false,
       notes: [
         {
           title: 'Заголовок',
@@ -78,8 +83,8 @@ export default {
     }
   },
   methods: {
-    handleAddNote() {
-      
+    toggleShowModal() {
+      this.showModal = !this.showModal;
     }
   }
 }
