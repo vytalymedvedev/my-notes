@@ -10,7 +10,8 @@
           inputLabel="Название заметки"
           placeholder="Введите название"
           showMaxlength
-          errorMessage="Заполните поле"
+          :errorMessage="noteTitleErrorMessage"
+          required
         />
 
         <textarea-custom
@@ -18,13 +19,14 @@
           label="Текст заметки"
           placeholder="Введите текст"
           showMaxlength
-          errorMessage="Заполните поле"
+          :errorMessage="noteContentErrorMessage"
+          required
         />
       </div>
     </template>
     <template #footer>
       <div class="modal__footer">
-        <button-primary @click="handleAddNote" class="add-button">
+        <button-primary @click="handleAddNote" type="submit" class="add-button">
           <template slot="text">
             <span>Добавить</span>
           </template>
@@ -54,6 +56,8 @@ export default {
       noteTitle: '',
       noteContent: '',
       errorMessage: '',
+      noteTitleErrorMessage: '',
+      noteContentErrorMessage: '',
     }
   },
   computed: {
@@ -63,7 +67,7 @@ export default {
   },
   methods: {
     handleAddNote() {
-
+      
     },
   }
 }

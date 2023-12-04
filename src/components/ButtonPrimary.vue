@@ -1,5 +1,10 @@
 <template>
-  <button class="button" :disabled="disabled" @click="$emit('click')">
+  <button
+    :type="type"
+    :disabled="disabled"
+    @click.stop.prevent="$emit('click')"
+    class="button"
+  >
     <slot name="icon"/>
     <slot name="text" />
   </button>
@@ -9,7 +14,11 @@
 export default {
   name: 'ButtonPrimary',
   props: {
-    disabled: Boolean
+    disabled: Boolean,
+    type: {
+      type: String,
+      default: 'button'
+    }
   },
 }
 </script>

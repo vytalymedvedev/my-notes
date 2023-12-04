@@ -2,9 +2,9 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-container">
+        <form class="modal-container">
 
-          <button-primary class="modal-default-button" @click="$emit('close')">
+          <button-primary @click="$emit('close')" class="modal-default-button" >
             <template slot="icon">
               <img src="/cross.svg" alt="enter icon" class="modal--button-image">
             </template>
@@ -21,7 +21,7 @@
             <slot name="footer" />
           </div>
 
-        </div>
+        </form>
       </div>
     </div>
   </transition>

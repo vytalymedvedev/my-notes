@@ -9,6 +9,7 @@
           v-model="email"
           inputLabel="Email"
           placeholder="Введите Email"
+          required
         />
 
         <input-custom
@@ -16,6 +17,7 @@
           secured
           inputLabel="Пароль"
           placeholder="Введите пароль"
+          required
         />
 
         <input-custom
@@ -24,6 +26,7 @@
           secured
           inputLabel="Пароль ещё раз"
           placeholder="Введите пароль"
+          required
         />
       </div>
     </template>

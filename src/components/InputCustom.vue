@@ -9,6 +9,7 @@
       :disabled="disabled"
       :id="uniqueId"
       :maxlength="maxlength"
+      :required="required"
       class="text-small field"
       />
 
@@ -35,6 +36,7 @@ export default {
     disabled: Boolean,
     errorMessage: String,
     secured: Boolean,
+    required: Boolean,
     maxlength: {
       type: Number,
       default: 100

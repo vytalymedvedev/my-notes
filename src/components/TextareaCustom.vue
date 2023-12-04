@@ -7,6 +7,7 @@
       type="text"
       :placeholder="placeholder"
       :disabled="disabled"
+      :required="required"
       :id="uniqueId"
       :maxlength="maxlength"
       class="text-small field"
@@ -30,6 +31,7 @@ export default {
     placeholder: String,
     errorMessage: String,
     disabled: Boolean,
+    required: Boolean,
     maxlength: {
       type: Number,
       default: 500
