@@ -2,7 +2,7 @@
   <button
     :type="type"
     :disabled="disabled"
-    @click.stop.prevent="$emit('click')"
+    @click="$emit('click')"
     class="button"
   >
     <slot name="icon"/>

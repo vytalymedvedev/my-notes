@@ -2,7 +2,7 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <form class="modal-container">
+        <form @submit.prevent="submit" class="modal-container">
 
           <button-primary @click="$emit('close')" class="modal-default-button" >
             <template slot="icon">
@@ -35,6 +35,9 @@ export default {
   components: {
     ButtonPrimary,
   },
+  props: {
+    submit: Function,
+  }
 }
 </script>
 

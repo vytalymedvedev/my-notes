@@ -1,5 +1,5 @@
 <template>
-  <modal-custom @close="$emit('close')">
+  <modal-custom :submit="handleAddNote" @close="$emit('close')">
     <template #header>
       <h2>Добавление заметки</h2>
     </template>
@@ -26,7 +26,7 @@
     </template>
     <template #footer>
       <div class="modal__footer">
-        <button-primary @click="handleAddNote" type="submit" class="add-button">
+        <button-primary type="submit" class="add-button">
           <template slot="text">
             <span>Добавить</span>
           </template>
@@ -67,7 +67,6 @@ export default {
   },
   methods: {
     handleAddNote() {
-      
     },
   }
 }

@@ -1,5 +1,5 @@
 <template>  
-  <modal-custom @close="$emit('close')">
+  <modal-custom :submit="handleLogin" @close="$emit('close')">
     <template #header>
       <h2>{{ headerText }}</h2>
     </template>
@@ -32,7 +32,7 @@
     </template>
     <template #footer>
       <div class="modal--footer">
-        <button-primary @click="handleLogin" class="login-button">
+        <button-primary type="submit" class="login-button">
           <template slot="text">
             <span>{{ enterText }}</span>
           </template>
