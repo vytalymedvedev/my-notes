@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <HeaderCommon />
-    <WelcomePage v-if="false"/>
-    <NotePage />
+    <component :is="currentView" />
   </div>
 </template>
 
@@ -11,12 +10,32 @@ import WelcomePage from './components/WelcomePage.vue';
 import NotePage from './components/NotePage.vue';
 import HeaderCommon from './components/HeaderCommon.vue';
 
+const routes = {
+  '/': WelcomePage,
+  'notes': NotePage
+}
+
 export default {
   name: 'App',
   components: {
     WelcomePage,
     NotePage,
     HeaderCommon
+  },
+  data() {
+    return {
+      currentPath: window.location.pathname,
+    }
+  },
+  computed: {
+    currentView() {
+      return routes[this.currentPath.slice(1) || '/']
+    }
+  },
+  mounted() {
+    window.addEventListener('beforeunload', () => {
+      this.currentPath = window.location.pathname;
+    })
   }
 }
 </script>
