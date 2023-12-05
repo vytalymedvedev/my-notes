@@ -12,7 +12,7 @@ import HeaderCommon from './components/HeaderCommon.vue';
 
 const routes = {
   '/': WelcomePage,
-  'notes': NotePage
+  '/notes': NotePage
 }
 
 export default {
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     currentView() {
-      return routes[this.currentPath.slice(1) || '/']
+      return routes[this.currentPath] || routes['/'];
     }
   },
   mounted() {
