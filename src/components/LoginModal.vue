@@ -1,5 +1,5 @@
 <template>  
-  <modal-custom :submit="handleLogin" @close="$emit('close')">
+  <modal-custom :submit="handleSubmit" @close="$emit('close')">
     <template #header>
       <h2>{{ headerText }}</h2>
     </template>
@@ -66,6 +66,7 @@ import ModalCustom from './ModalCustom.vue';
 import InputCustom from './InputCustom.vue';
 import ButtonPrimary from './ButtonPrimary.vue';
 import LinkPrimary from './LinkPrimary.vue';
+import { postRegistration, postAuth } from '../api/index';
 
 export default {
   name: 'LoginModal',
@@ -93,11 +94,57 @@ export default {
     }
   },
   methods: {
+    postRegistration,
+    postAuth,
     toggleRegistration() {
       this.registration = !this.registration;
     },
-    handleLogin() {
+    async handleSubmit() {
+      this.errorMessage = '';
+
+      const email = this.email.trim();
+      const password = this.password.trim();
+
+      try {
+        if(this.registration) {
+          const confirm_password = this.passwordRepeat.trim();
+          const response = await this.postRegistration({ email, password, confirm_password });
+
+          if(response.status === 200) {
+            await this.handleAuth({ email, password });
+          }
+        } else {
+          await this.handleAuth({ email, password });
+        }
+      } catch (err) {
+        console.log('error ', err);
+        this.handleErrorResponse(err?.response?.data?.message);
+      }
     },
+    async handleAuth(reqBody) {
+      const response = await this.postAuth(reqBody);
+
+      if(response.status === 200) {
+        window.localStorage.setItem('access_token', response.data?.accessToken);
+        window.localStorage.setItem('email', this.email);
+        window.location.href = '/notes';
+      } else {
+        this.handleErrorResponse(response.data?.message);
+      }
+    },
+    handleErrorResponse(message) {
+      if(typeof message === 'string') {
+        this.errorMessage = message;
+        return;
+      }
+
+      if(Array.isArray(message)) {
+        this.errorMessage = message.reduce((acc, curr) => `${acc}${curr} `, '');
+        return;
+      }
+
+      return;
+    }
   }
 }
 </script>

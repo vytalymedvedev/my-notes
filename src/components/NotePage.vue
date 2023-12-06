@@ -31,8 +31,14 @@ export default {
     NotePrimary,
     NoteModal,
   },
+  created() {
+    if(!this.loggedIn) {
+      window.location.href = '/';
+    }
+  },
   data() {
     return {
+      loggedIn: window.localStorage.getItem('email'),
       showModal: false,
       notes: [
         {
@@ -86,7 +92,7 @@ export default {
     toggleShowModal() {
       this.showModal = !this.showModal;
     }
-  }
+  },
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <img src="/logo.svg" alt="logo" class="header--logo"/>
-    <user-profile v-if="true" :email="userEmail"/>
+    <user-profile v-if="userEmail" :email="userEmail" @logout="handleLogout"/>
     <button-primary v-else @click="handleShowModal" class="header--button">
       <template slot="icon">
         <img src="/enter.svg" alt="enter icon" class="header--button-image">
@@ -10,7 +10,7 @@
         <span>Вход</span>
       </template>
     </button-primary>
-    <login-modal v-if="showModal" @close="handleHideModal"></login-modal>
+    <login-modal v-if="showModal" @close="handleHideModal" @authorized="onAuthorized"></login-modal>
   </header>
 </template>
 
@@ -18,6 +18,7 @@
 import ButtonPrimary from './ButtonPrimary.vue';
 import LoginModal from './LoginModal.vue';
 import UserProfile from './UserProfile.vue';
+import { logout } from '../api/index';
 
 export default {
   name: 'HeaderCommon',
@@ -26,23 +27,27 @@ export default {
     LoginModal,
     UserProfile
   },
-  props: {
-    isLoggedIn: Boolean
-  },
   data() {
     return {
       showModal: false,
-      user: {
-        email: 'username@example.com'
-      },
+      loggedIn: false,
     }
   },
   computed: {
     userEmail() {
-      return this.user?.email || '';
-    }
+      return window.localStorage.getItem('email');
+    },
   },
   methods: {
+    async handleLogout() {
+      try {
+        const token = window.localStorage.getItem('access_token');
+        await logout(token);
+      } finally {
+        window.localStorage.clear();
+        window.location.href = '/';
+      }
+    },
     handleShowModal() {
       this.showModal = true;
     },
