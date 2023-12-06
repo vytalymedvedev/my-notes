@@ -1,13 +1,13 @@
 <template>
   <main class="note-page">
-    <NoteModal v-if="showModal" @close="toggleShowModal"/>
+    <NoteModal v-if="showModal" @close="toggleShowModal" @add="handleGetNotes"/>
 
     <div class="note-page__table">
       <NotePrimary
-        v-for="(note, index) of notes"
+        v-for="note of notes"
         :title="note.title"
         :content="note.content"
-        :key="index"
+        :key="note.id"
       />
     </div>
     
@@ -23,6 +23,7 @@
 import NoteModal from './NoteModal.vue';
 import ButtonPrimary from './ButtonPrimary.vue';
 import NotePrimary from './NotePrimary.vue';
+import { getNotes } from '../api';
 
 export default {
   name: 'NotePage',
@@ -31,67 +32,32 @@ export default {
     NotePrimary,
     NoteModal,
   },
-  created() {
-    if(!this.loggedIn) {
+  async created() {
+    if(!this.token) {
       window.location.href = '/';
+      return;
     }
+    await this.handleGetNotes();
   },
   data() {
     return {
-      loggedIn: window.localStorage.getItem('email'),
+      token: window.localStorage.getItem('access_token'),
       showModal: false,
-      notes: [
-        {
-          title: 'Заголовок',
-          content: 'А также явные признаки победы институционализации могут быть объединены в целые кластеры себе подобных.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'Не следует, однако, забывать, что базовый вектор развития предопределяет высокую востребованность позиций, занимаемых участниками в отношении поставленных задач. Вот вам яркий пример современных тенденций — повышение уровня гражданского сознания требует анализа переосмысления внешнеэкономических политик.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'А также явные признаки победы институционализации могут быть объединены в целые кластеры себе подобных.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'А также явные признаки победы институционализации могут быть объединены в целые кластеры себе подобных.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'А также явные признаки победы институционализации могут быть объединены в целые кластеры себе подобных.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'А также явные признаки победы институционализации могут быть объединены в целые кластеры себе подобных.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'Не следует, однако, забывать, что базовый вектор развития предопределяет высокую востребованность позиций, занимаемых участниками в отношении поставленных задач. Вот вам яркий пример современных тенденций — повышение уровня гражданского сознания требует анализа переосмысления внешнеэкономических политик.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'А также явные признаки победы институционализации могут быть объединены в целые кластеры себе подобных.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'А также явные признаки победы институционализации могут быть объединены в целые кластеры себе подобных.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'Не следует, однако, забывать, что базовый вектор развития предопределяет высокую востребованность позиций, занимаемых участниками в отношении поставленных задач. Вот вам яркий пример современных тенденций — повышение уровня гражданского сознания требует анализа переосмысления внешнеэкономических политик.', 
-        },
-        {
-          title: 'Заголовок',
-          content: 'А также явные признаки победы институционализации могут быть объединены в целые кластеры себе подобных.', 
-        },
-      ],
+      notes: [],
     }
   },
   methods: {
     toggleShowModal() {
       this.showModal = !this.showModal;
-    }
+    },
+    async handleGetNotes() {
+      try {
+        const { data } = await getNotes(this.token);
+        this.notes = [...data];
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 }
 </script>

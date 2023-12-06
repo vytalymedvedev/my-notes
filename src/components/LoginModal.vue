@@ -67,6 +67,7 @@ import InputCustom from './InputCustom.vue';
 import ButtonPrimary from './ButtonPrimary.vue';
 import LinkPrimary from './LinkPrimary.vue';
 import { postRegistration, postAuth } from '../api/index';
+import { errorMixin } from '@/mixins/errorMixin';
 
 export default {
   name: 'LoginModal',
@@ -76,6 +77,7 @@ export default {
     ButtonPrimary,
     LinkPrimary,
   },
+  mixins: [errorMixin],
   data() {
     return {
       email: '',
@@ -117,7 +119,6 @@ export default {
           await this.handleAuth({ email, password });
         }
       } catch (err) {
-        console.log('error ', err);
         this.handleErrorResponse(err?.response?.data?.message);
       }
     },
@@ -132,19 +133,6 @@ export default {
         this.handleErrorResponse(response.data?.message);
       }
     },
-    handleErrorResponse(message) {
-      if(typeof message === 'string') {
-        this.errorMessage = message;
-        return;
-      }
-
-      if(Array.isArray(message)) {
-        this.errorMessage = message.reduce((acc, curr) => `${acc}${curr} `, '');
-        return;
-      }
-
-      return;
-    }
   }
 }
 </script>

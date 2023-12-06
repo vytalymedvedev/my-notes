@@ -42,6 +42,8 @@ import ModalCustom from './ModalCustom.vue';
 import InputCustom from './InputCustom.vue';
 import TextareaCustom from './TextareaCustom.vue';
 import ButtonPrimary from './ButtonPrimary.vue';
+import { postNote } from '@/api';
+import { errorMixin } from '@/mixins/errorMixin';
 
 export default {
   name: 'NoteModal',
@@ -51,6 +53,7 @@ export default {
     ButtonPrimary,
     TextareaCustom,
   },
+  mixins: [errorMixin],
   data() {
     return {
       noteTitle: '',
@@ -58,6 +61,7 @@ export default {
       errorMessage: '',
       noteTitleErrorMessage: '',
       noteContentErrorMessage: '',
+      token: window.localStorage.getItem('access_token'),
     }
   },
   computed: {
@@ -66,7 +70,16 @@ export default {
     }
   },
   methods: {
-    handleAddNote() {
+    async handleAddNote() {
+      this.errorMessage = '';
+
+      try {
+        await postNote({ title: this.noteTitle, content: this.noteContent }, this.token);
+        this.$emit('add');
+      } catch (error) {
+        console.log(error);
+        this.handleErrorResponse(error?.response?.data?.message);
+      }
     },
   }
 }
