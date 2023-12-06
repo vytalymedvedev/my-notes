@@ -1,6 +1,6 @@
 <template>
   <main class="note-page">
-    <NoteModal v-if="showModal" @close="toggleShowModal" @add="handleGetNotes"/>
+    <NoteModal v-if="showModal" @close="toggleShowModal" @add="handleAddNote"/>
 
     <div class="note-page__table">
       <NotePrimary
@@ -8,6 +8,7 @@
         :title="note.title"
         :content="note.content"
         :key="note.id"
+        @remove="handleRemoveNote(note.id)"
       />
     </div>
     
@@ -23,7 +24,7 @@
 import NoteModal from './NoteModal.vue';
 import ButtonPrimary from './ButtonPrimary.vue';
 import NotePrimary from './NotePrimary.vue';
-import { getNotes } from '../api';
+import { getNotes, deleteNote } from '../api';
 
 export default {
   name: 'NotePage',
@@ -47,15 +48,29 @@ export default {
     }
   },
   methods: {
+    getNotes,
+    deleteNote,
     toggleShowModal() {
       this.showModal = !this.showModal;
     },
+    async handleAddNote() {
+      this.showModal = false;
+      await this.handleGetNotes();
+    },
     async handleGetNotes() {
       try {
-        const { data } = await getNotes(this.token);
+        const { data } = await this.getNotes(this.token);
         this.notes = [...data];
       } catch (error) {
-        console.log(error);
+        console.error(error);
+      }
+    },
+    async handleRemoveNote(id) {
+      try {
+        await this.deleteNote(id, this.token);
+        await this.handleGetNotes();
+      } catch (error) {
+        console.error(error);
       }
     },
   },
