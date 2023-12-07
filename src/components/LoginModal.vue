@@ -188,7 +188,7 @@ export default {
 	}
 }
 
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 1920px) {
 	.modal--footer-text {
 		display: inline-block;
 	}

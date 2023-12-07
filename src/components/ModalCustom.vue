@@ -76,7 +76,7 @@ export default {
 	}
 }
 
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 1920px) {
 	.modal-container {
     padding: 20px 20px 80px;
     max-width: 780px;
@@ -93,7 +93,7 @@ export default {
 	}
 }
 
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 1920px) {
 	.modal-header, .modal-body, .modal-footer {
 		padding: 0 60px;
 	}

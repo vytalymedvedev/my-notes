@@ -32,7 +32,7 @@ export default {
   height: 100vh;
 }
 
-@media screen and (min-width: 770px) {
+@media screen and (min-width: 768px) {
 	.welcomePage {
 		flex-direction: row;
 	}

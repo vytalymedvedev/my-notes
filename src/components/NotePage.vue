@@ -110,22 +110,15 @@ export default {
 
 .note-page__add-note-button {
   position: -webkit-sticky;
-  position: sticky;
-  bottom: 0;
+  position: fixed;
+  bottom: 40px;
+  right: 8px;
   box-shadow: 0 15px 46px -10px rgba(0, 0, 0, 0.6);
-  margin-left: auto;
-  margin-right: -1rem;
-}
-
-@media screen and (min-width: 1366px) {
-	.note-page__add-note-button {
-		margin-right: -4rem;
-	}
 }
 
 @media screen and (min-width: 1920px) {
 	.note-page__add-note-button {
-		margin-right: -6rem;
+		right: 40px;
 	}
 }
 

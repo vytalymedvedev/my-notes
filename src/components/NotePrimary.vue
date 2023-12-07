@@ -87,7 +87,7 @@ export default {
 	}
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1366px) {
 	.note--body-content {
 		-webkit-line-clamp: 9;
 	}
