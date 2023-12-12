@@ -6,14 +6,14 @@
     <template #body>
       <div class="modal--body">
         <input-custom
-          v-model="email"
+          v-model.trim="email"
           inputLabel="Email"
           placeholder="Введите Email"
           required
         />
 
         <input-custom
-          v-model="password"
+          v-model.trim="password"
           secured
           inputLabel="Пароль"
           placeholder="Введите пароль"
@@ -22,7 +22,7 @@
 
         <input-custom
           v-if="registration"
-          v-model="passwordRepeat"
+          v-model.trim="passwordRepeat"
           secured
           inputLabel="Пароль ещё раз"
           placeholder="Введите пароль"
@@ -104,19 +104,25 @@ export default {
     async handleSubmit() {
       this.errorMessage = '';
 
-      const email = this.email.trim();
-      const password = this.password.trim();
-
       try {
         if(this.registration) {
-          const confirm_password = this.passwordRepeat.trim();
-          const response = await this.postRegistration({ email, password, confirm_password });
+          const response = await this.postRegistration({ 
+            email: this.email,
+            password: this.password,
+            confirm_password: this.passwordRepeat
+         });
 
           if(response.status === 200) {
-            await this.handleAuth({ email, password });
+            await this.handleAuth({ 
+              email: this.email,
+              password: this.password,
+            });
           }
         } else {
-          await this.handleAuth({ email, password });
+          await this.handleAuth({ 
+            email: this.email,
+            password: this.password,
+          });
         }
       } catch (err) {
         this.handleErrorResponse(err?.response?.data?.message);
