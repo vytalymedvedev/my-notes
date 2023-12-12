@@ -8,11 +8,13 @@
 <script>
 import WelcomePage from './components/WelcomePage.vue';
 import NotePage from './components/NotePage.vue';
+import NotFoundPage from './components/NotFoundPage.vue';
 import HeaderCommon from './components/HeaderCommon.vue';
 
 const routes = {
   '/': WelcomePage,
-  '/notes': NotePage
+  '/notes': NotePage,
+  'not_found': NotFoundPage
 }
 
 export default {
@@ -20,6 +22,7 @@ export default {
   components: {
     WelcomePage,
     NotePage,
+    NotFoundPage,
     HeaderCommon
   },
   data() {
@@ -29,7 +32,7 @@ export default {
   },
   computed: {
     currentView() {
-      return routes[this.currentPath] || routes['/'];
+      return routes[this.currentPath] || routes['not_found'];
     }
   },
   mounted() {
